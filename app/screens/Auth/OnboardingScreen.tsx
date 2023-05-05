@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,10 +7,22 @@ import {
   ListRenderItem,
   Image,
 } from 'react-native';
-import Animated,{ColorSpace, useAnimatedScrollHandler,useAnimatedSensor,useAnimatedStyle,useSharedValue,withTiming} from 'react-native-reanimated'
+import Animated, {
+  ColorSpace,
+  useAnimatedScrollHandler,
+  useAnimatedSensor,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
 // components
-import {UIContainer, UITextButton, UITextView, UIPagination} from '../../components';
+import {
+  UIContainer,
+  UITextButton,
+  UITextView,
+  UIPagination,
+} from '../../components';
 import {COLORS, DIMENSIONS, STYLES} from '../../constants';
 import {normalizeFontSize} from '../../utils/helper';
 
@@ -40,23 +52,19 @@ const DATA: onboardingTypes[] = [
 
 const OnboardingScreen = () => {
   // init values
-  const translateX = useSharedValue<number>(0)
+  const translateX = useSharedValue<number>(0);
+  const flatList = useRef();
 
   // EVENTS
   const _scrollHandler = useAnimatedScrollHandler({
-    onScroll:(event)=>{
-      translateX.value = event.contentOffset.x
-    }
-  })
+    onScroll: event => {
+      translateX.value = event.contentOffset.x;
+    },
+  });
 
-  // ANIMATIONS
-  const pageStyle = useAnimatedStyle(()=>{
-    const input:number[] = []
-    const output:string[] = [COLORS.grey.grey2, COLORS.primaryColor, COLORS.grey.grey2]
-    return{
-
-    }
-  })
+  const _scrollToNext = () => {
+    flatList?.current?.scrollToIndex({animated: true, index: 1});
+  };
 
   // RENDER UI
   const RenderItem = (props: any) => {
@@ -77,13 +85,13 @@ const OnboardingScreen = () => {
     );
   };
 
-
   return (
     <UIContainer childStyles={{justifyContent: 'space-between'}}>
       <Animated.FlatList
         style={{
           flexGrow: 0,
         }}
+        ref={flatList}
         data={DATA}
         keyExtractor={(_, index) => `onboarding-${index}`}
         onScroll={_scrollHandler}
@@ -94,11 +102,20 @@ const OnboardingScreen = () => {
         renderItem={({item, index}) => <RenderItem item={item} index={index} />}
       />
 
-      <UIPagination data={DATA} translateX={translateX}/>
+      <UIPagination data={DATA} translateX={translateX} />
 
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <UITextButton lable="Skip" onPress={() => console.log('hello world')} />
-        <UITextButton lable="Next" onPress={() => console.log('hello world')} labelStyle={styles.labelStyle}/>
+        <UITextButton
+          lable="Skip"
+          onPress={() => {
+            _scrollToNext();
+          }}
+        />
+        <UITextButton
+          lable="Next"
+          onPress={() => {_scrollToNext()}}
+          labelStyle={styles.labelStyle}
+        />
       </View>
     </UIContainer>
   );
@@ -106,7 +123,7 @@ const OnboardingScreen = () => {
 
 const styles = StyleSheet.create({
   image: {
-    width: DIMENSIONS.screenWidth - (DIMENSIONS.padding * 2),
+    width: DIMENSIONS.screenWidth - DIMENSIONS.padding * 2,
     height: 200,
     marginBottom: 100,
   },
@@ -124,10 +141,10 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
   },
-  labelStyle:{
-    color:COLORS.primaryColor,
-    fontSize:normalizeFontSize(20)
-  }
+  labelStyle: {
+    color: COLORS.primaryColor,
+    fontSize: normalizeFontSize(20),
+  },
 });
 
 export default OnboardingScreen;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, TouchableOpacity, Text, ViewStyle} from 'react-native';
+import {StyleSheet, TouchableOpacity, Text, ViewStyle, TextStyle} from 'react-native';
 
 // constants
 import {COLORS, DIMENSIONS} from '../../constants';
@@ -12,7 +12,7 @@ interface propTypes {
   lable: string;
   onPress: () => void;
   containerStyle?: ViewStyle | ViewStyle[];
-  labelStyle?: ViewStyle | ViewStyle[];
+  labelStyle?: TextStyle | TextStyle[];
 }
 
 const UITextButton = ({
