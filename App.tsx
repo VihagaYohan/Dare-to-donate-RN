@@ -16,19 +16,19 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
-// screens
-import { OnboardingScreen } from './app/screens/Auth';
+// navigators
+import { AppNavigator } from './app/navigation';
 
 function App(): JSX.Element {
- 
   return (
-    <OnboardingScreen/>
+    <NavigationContainer>
+        <AppNavigator/>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  
-});
+const styles = StyleSheet.create({});
 
 export default App;

@@ -15,6 +15,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RouteProp} from '@react-navigation/native';
 
 // components
 import {
@@ -25,6 +27,7 @@ import {
 } from '../../components';
 import {COLORS, DIMENSIONS, STYLES} from '../../constants';
 import {normalizeFontSize} from '../../utils/helper';
+import {RouteNames} from '../../navigation';
 
 interface onboardingTypes {
   id: string;
@@ -50,7 +53,13 @@ const DATA: onboardingTypes[] = [
   },
 ];
 
-const OnboardingScreen = () => {
+const OnboardingScreen = ({
+  navigation,
+  route,
+}: {
+  navigation: NativeStackNavigationProp<any, any>;
+  route: RouteProp<any, any>;
+}) => {
   // init values
   const translateX = useSharedValue<number>(0);
   const flatList = useRef();
@@ -63,7 +72,11 @@ const OnboardingScreen = () => {
   });
 
   const _scrollToNext = () => {
-    flatList?.current?.scrollToIndex({animated: true, index: 1});
+    if (DIMENSIONS.screenWidth - DIMENSIONS.padding * 2 == translateX.value) {
+      flatList?.current?.scrollToIndex({animated: true, index: 1});
+    } else {
+      navigation.navigate(RouteNames.AppAuth.Welcome);
+    }
   };
 
   // RENDER UI
@@ -113,7 +126,9 @@ const OnboardingScreen = () => {
         />
         <UITextButton
           lable="Next"
-          onPress={() => {_scrollToNext()}}
+          onPress={() => {
+            _scrollToNext();
+          }}
           labelStyle={styles.labelStyle}
         />
       </View>
