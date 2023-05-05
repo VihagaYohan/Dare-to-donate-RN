@@ -11,4 +11,7 @@ export default {
   black: {
     black1: '#272A2F',
   },
+  white:{
+    white1:'#fff'
+  }
 };
