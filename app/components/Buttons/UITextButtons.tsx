@@ -6,6 +6,7 @@ import {COLORS, DIMENSIONS} from '../../constants';
 
 // utils
 import {normalizeFontSize} from '../../utils/helper';
+import { FontFamily } from '../../utils/enums';
 
 interface propTypes {
   lable: string;
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     fontSize: normalizeFontSize(20),
+    fontFamily:FontFamily.Regular,
     color: COLORS.grey.grey3,
   },
 });
