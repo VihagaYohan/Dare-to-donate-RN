@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Image} from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack'
-import {RouteProp, RouterProp} from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // components
 import {UIContainer, UITextView, UIButton, UITextInput} from '../../components';
@@ -14,19 +13,18 @@ import {COLORS, DIMENSIONS, STYLES, ICONS} from '../../constants';
 import {normalizeFontSize} from '../../utils/helper';
 import {FontFamily} from '../../utils/enums';
 
-// navigation
-import { RouteNames } from '../../navigation';
+const {MaterialIcon, SimpleLineIcon, MaterialCommunityIcon} = ICONS;
 
-const {MaterialIcon} = ICONS;
-
-const LoginScreen = ({
-    navigation,
-    route
-}:{
-    navigation:NativeStackNavigationProp<any,any>,
-    route:RouteProp<any,any>
-}) => {
+const RegisterScreen = () => {
   // ICONS
+  const user = (
+    <SimpleLineIcon
+      name="user"
+      size={24}
+      color={COLORS.primaryColor}
+      style={styles.iconStyle}
+    />
+  );
   const email = (
     <MaterialIcon
       name="mail-outline"
@@ -45,16 +43,43 @@ const LoginScreen = ({
     />
   );
 
+  const phone = (
+    <SimpleLineIcon
+      name="user"
+      size={24}
+      color={COLORS.primaryColor}
+      style={styles.iconStyle}
+    />
+  );
+
+  const drop = (
+    <SimpleLineIcon
+      name="drop"
+      size={24}
+      color={COLORS.primaryColor}
+      style={styles.iconStyle}
+    />
+  );
+
+  const location = (
+    <MaterialCommunityIcon
+      name="map-marker-outline"
+      size={24}
+      color={COLORS.primaryColor}
+      style={styles.iconStyle}
+    />
+  );
+
   // RENDER UI
   const Footer = () => {
     return (
       <View style={[STYLES.row, {justifyContent: 'center'}]}>
         <UITextView
-          text="Don't have an account ?"
+          text="Already have an account ?"
           textStyle={[styles.footerTextStyle]}
         />
         <UITextView
-          text="Register Now."
+          text="Log in."
           textStyle={[
             styles.footerTextStyle,
             {color: COLORS.primaryColor, marginLeft: DIMENSIONS.marginLeft},
@@ -68,10 +93,11 @@ const LoginScreen = ({
       parentStyles={{backgroundColor: COLORS.white.white1}}
       childStyles={{backgroundColor: COLORS.white.white1}}
       footerView={Footer()}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Logo logoStyle={styles.logoStyle} titleStyle={styles.titleStyle} />
 
         <View style={{marginTop: DIMENSIONS.margin * 10}}>
+          <UITextInput icon={user} placeholder="Enter name" />
           <UITextInput icon={email} placeholder="Enter email" />
           <UITextInput
             icon={password}
@@ -79,9 +105,18 @@ const LoginScreen = ({
             secureTextEntry={true}
           />
 
+          <UITextInput icon={phone} placeholder="Enter contact number" />
+
+          <UITextInput
+            icon={drop}
+            placeholder="Enter blood group type. Ex: O+"
+          />
+
+          <UITextInput icon={location} placeholder="Enter location" />
+
           <UIButton
-            label="LOG IN"
-            onPress={() => navigation.navigate(RouteNames.AppAuth.Register)}
+            label="REGISTER"
+            onPress={() => console.log('log in')}
             parentStyle={{
               marginTop: DIMENSIONS.margin * 4,
               marginBottom: DIMENSIONS.margin,
@@ -115,4 +150,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default RegisterScreen;

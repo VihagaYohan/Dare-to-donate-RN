@@ -11,7 +11,12 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RouteNames} from './index';
 
 // auth screens
-import {WelcomeScreen, OnboardingScreen, LoginScreen} from '../screens/Auth';
+import {
+  WelcomeScreen,
+  OnboardingScreen,
+  LoginScreen,
+  RegisterScreen,
+} from '../screens/Auth';
 
 // constants
 import {COLORS} from '../constants';
@@ -59,6 +64,12 @@ const Navigator = () => {
       <Stack.Screen
         name={RouteNames.AppAuth.Login}
         component={LoginScreen}
+        options={defaultNavigationOptions}
+      />
+
+      <Stack.Screen
+        name={RouteNames.AppAuth.Register}
+        component={RegisterScreen}
         options={defaultNavigationOptions}
       />
     </Stack.Navigator>
