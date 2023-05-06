@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Image, View, ScrollView} from 'react-native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RouteProp} from '@react-navigation/native';
 
 // components
 import {UIContainer, UITextView, UIButton} from '../../components';
@@ -8,18 +10,25 @@ import {UIContainer, UITextView, UIButton} from '../../components';
 import {COLORS, DIMENSIONS, STYLES} from '../../constants';
 import {FontFamily} from '../../utils/enums';
 import {normalizeFontSize} from '../../utils/helper';
+import { RouteNames } from '../../navigation';
 
 const {screenWidth, screenHeight} = DIMENSIONS;
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({
+  navigation,
+  route,
+}: {
+  navigation: NativeStackNavigationProp<any, any>;
+  route: RouteProp<any, any>;
+}) => {
   return (
     <UIContainer>
-      <ScrollView 
-       contentContainerStyle={{
-        justifyContent:'center',
-        alignItems:'center'
-       }}
-       style={{flex: 1}}>
+      <ScrollView
+        contentContainerStyle={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        style={{flex: 1}}>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <Image
             source={require('../../assets/images/logo.png')}
@@ -48,7 +57,7 @@ const WelcomeScreen = () => {
         <UIButton
           label="Login"
           isPrimary={false}
-          onPress={() => console.log('login pressed')}
+          onPress={() => navigation.navigate(RouteNames.AppAuth.Login)}
           parentStyle={{marginBottom: 10}}
         />
         <UIButton

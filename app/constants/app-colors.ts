@@ -12,6 +12,7 @@ export default {
     black1: '#272A2F',
   },
   white:{
-    white1:'#fff'
+    white1:'#fff',
+    white2:"#f8f8f8"
   }
 };

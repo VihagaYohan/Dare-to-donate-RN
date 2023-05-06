@@ -24,15 +24,16 @@ const UIContainer = (props: propTypes) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <SafeAreaView style={[styles.wrapper, props.parentStyles]}>
       <View style={[styles.childContainer, props.childStyles]}>
         {props.children}
-
-        {props.footerView && (
-          <View
-            style={[styles.footerView, {marginBottom: insets.bottom}]}></View>
-        )}
       </View>
+
+      {props.footerView && (
+        <View style={[styles.footerView, {marginBottom: insets.bottom,}]}>
+          {props.footerView}
+        </View>
+      )}
     </SafeAreaView>
   );
 };
