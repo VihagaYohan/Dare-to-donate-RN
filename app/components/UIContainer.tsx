@@ -6,6 +6,7 @@ import {
   ScrollView,
   ViewStyle,
 } from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 // constants
 import {DIMENSIONS, COLORS} from '../constants';
@@ -16,13 +17,21 @@ interface propTypes {
   parentStyles?: ViewStyle | ViewStyle[];
   childStyles?: ViewStyle | ViewStyle[];
   children: JSX.Element | JSX.Element[];
+  footerView?: JSX.Element | JSX.Element[];
 }
 
 const UIContainer = (props: propTypes) => {
+  const insets = useSafeAreaInsets();
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={[styles.childContainer, props.childStyles]}>
         {props.children}
+
+        {props.footerView && (
+          <View
+            style={[styles.footerView, {marginBottom: insets.bottom}]}></View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -36,6 +45,9 @@ const styles = StyleSheet.create({
   childContainer: {
     flex: 1,
     padding: DIMENSIONS.padding,
+  },
+  footerView: {
+    marginVertical: DIMENSIONS.margin,
   },
 });
 
