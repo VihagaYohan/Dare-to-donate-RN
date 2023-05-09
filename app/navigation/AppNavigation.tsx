@@ -16,6 +16,7 @@ import {
   OnboardingScreen,
   LoginScreen,
   RegisterScreen,
+  ResetPasswordScreen,
 } from '../screens/Auth';
 
 // constants
@@ -70,6 +71,12 @@ const Navigator = () => {
       <Stack.Screen
         name={RouteNames.AppAuth.Register}
         component={RegisterScreen}
+        options={defaultNavigationOptions}
+      />
+
+      <Stack.Screen
+        name={RouteNames.AppAuth.ResetPassword}
+        component={ResetPasswordScreen}
         options={defaultNavigationOptions}
       />
     </Stack.Navigator>

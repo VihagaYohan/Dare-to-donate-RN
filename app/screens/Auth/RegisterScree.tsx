@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Image} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack'
+import {RouteProp} from '@react-navigation/native'
 
 // components
 import {UIContainer, UITextView, UIButton, UITextInput} from '../../components';
@@ -12,10 +13,17 @@ import {Logo} from '../../widgets';
 import {COLORS, DIMENSIONS, STYLES, ICONS} from '../../constants';
 import {normalizeFontSize} from '../../utils/helper';
 import {FontFamily} from '../../utils/enums';
+import { RouteNames } from '../../navigation';
 
 const {MaterialIcon, SimpleLineIcon, MaterialCommunityIcon} = ICONS;
 
-const RegisterScreen = () => {
+const RegisterScreen = ({
+  navigation,
+  route
+}:{
+  navigation:NativeStackNavigationProp<any,any>,
+  route:RouteProp<any,any>
+}) => {
   // ICONS
   const user = (
     <SimpleLineIcon
@@ -116,20 +124,10 @@ const RegisterScreen = () => {
 
           <UIButton
             label="REGISTER"
-            onPress={() => console.log('log in')}
+            onPress={() => navigation.navigate(RouteNames.AppAuth.ResetPassword)}
             parentStyle={{
               marginTop: DIMENSIONS.margin * 4,
               marginBottom: DIMENSIONS.margin,
-            }}
-          />
-
-          <UITextView
-            text="Forgot Password ?"
-            textStyle={{
-              color: COLORS.primaryColor,
-              fontSize: normalizeFontSize(18),
-              fontFamily: FontFamily.Regular,
-              textAlign: 'center',
             }}
           />
         </View>

@@ -3,6 +3,7 @@ export default {
         Onboarding:"onboarding",
         Welcome:"welcome",
         Login:"login",
-        Register:'register'
+        Register:'register',
+        ResetPassword:"reset_password"
     }
 }
