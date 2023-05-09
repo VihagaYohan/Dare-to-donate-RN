@@ -18,6 +18,7 @@ import {
   RegisterScreen,
   ResetPasswordScreen,
   OTPScreen,
+  VerifyScreen,
 } from '../screens/Auth';
 
 // constants
@@ -84,6 +85,12 @@ const Navigator = () => {
       <Stack.Screen
         name={RouteNames.AppAuth.OTP}
         component={OTPScreen}
+        options={defaultNavigationOptions}
+      />
+
+      <Stack.Screen
+        name={RouteNames.AppAuth.Verify}
+        component={VerifyScreen}
         options={defaultNavigationOptions}
       />
     </Stack.Navigator>

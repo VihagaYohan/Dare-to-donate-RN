@@ -5,6 +5,7 @@ export default {
         Login:"login",
         Register:'register',
         ResetPassword:"reset_password",
-        OTP:"otp"
+        OTP:"otp", 
+        Verify:"verify"
     }
 }

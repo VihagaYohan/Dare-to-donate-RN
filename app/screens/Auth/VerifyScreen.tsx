@@ -2,7 +2,6 @@ import React, {Component, useState} from 'react';
 import {StyleSheet, Image, View, ScrollView} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 // components
 import {UIContainer, UITextView, UIButton, UITextInput} from '../../components';
@@ -17,7 +16,7 @@ const {MaterialIcon} = ICONS;
 
 const {screenWidth, screenHeight} = DIMENSIONS;
 
-const OTPScreen = ({
+const VerifyScreen = ({
   navigation,
   route,
 }: {
@@ -46,26 +45,15 @@ const OTPScreen = ({
         }}
         style={{flex: 1}}
         showsVerticalScrollIndicator={false}>
-        <OTPInputView
-          style={{width: '80%', height: 120}}
-          pinCount={4}
-          autoFocusOnLoad
-          codeInputFieldStyle={styles.underlineStyleBase}
-          onCodeFilled={code => {
-            console.log(`Code is ${code}, you are good to go!`);
-          }}
+        <Image
+          source={require('../../assets/images/verify/success.png')}
+          style={styles.imageStyle}
+          resizeMode="contain"
         />
 
-        <View style={{width: '100%'}}>
-          <UITextView
-            text={`Resend code ${seconds} Sec`}
-            textStyle={styles.resendToken}
-          />
-        </View>
-
         <UIButton
-          label="Verify"
-          onPress={() => navigation.navigate(RouteNames.AppAuth.Verify)}
+          label="Finish"
+          onPress={() => console.log('register pressed')}
         />
       </ScrollView>
     </UIContainer>
@@ -73,19 +61,11 @@ const OTPScreen = ({
 };
 
 const styles = StyleSheet.create({
-  underlineStyleBase: {
-    width: 60,
-    height: 60,
-    backgroundColor: COLORS.backgroundColor,
-    borderRadius: 10,
-  },
-
-  resendToken: {
-    color: COLORS.primaryColor,
-    fontFamily: FontFamily.Regular,
-    textAlign: 'right',
-    marginBottom: DIMENSIONS.marginBottom,
+  imageStyle: {
+    width: 270,
+    height: 230,
+    marginBottom: DIMENSIONS.marginBottom * 5,
   },
 });
 
-export default OTPScreen;
+export default VerifyScreen;
