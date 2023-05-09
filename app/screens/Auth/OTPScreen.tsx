@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {StyleSheet, Image, View, ScrollView} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 // components
 import {UIContainer, UITextView, UIButton, UITextInput} from '../../components';
@@ -16,13 +17,16 @@ const {MaterialIcon} = ICONS;
 
 const {screenWidth, screenHeight} = DIMENSIONS;
 
-const ResetPassword = ({
+const OTPScreen = ({
   navigation,
   route,
 }: {
   navigation: NativeStackNavigationProp<any, any>;
   route: RouteProp<any, any>;
 }) => {
+  // INIT
+  const [seconds, setSeconds] = useState<number>(49);
+
   // ICONS
   const email = (
     <MaterialIcon
@@ -38,20 +42,30 @@ const ResetPassword = ({
         contentContainerStyle={{
           justifyContent: 'center',
           alignItems: 'center',
-          flex:1
+          flex: 1,
         }}
         style={{flex: 1}}
         showsVerticalScrollIndicator={false}>
-        <UITextInput icon={email} placeholder='Enter email address'/>
-
-        <UITextView
-          text={`Your password reset will be send in you \n registered email address`}
-          textStyle={styles.description}
+        <OTPInputView
+          style={{width: '80%', height: 120}}
+          pinCount={4}
+          autoFocusOnLoad
+          codeInputFieldStyle={styles.underlineStyleBase}
+          onCodeFilled={code => {
+            console.log(`Code is ${code}, you are good to go!`);
+          }}
         />
 
+        <View style={{width: '100%'}}>
+          <UITextView
+            text={`Resend code ${seconds} Sec`}
+            textStyle={styles.resendToken}
+          />
+        </View>
+
         <UIButton
-          label="Send"
-          onPress={() => navigation.navigate(RouteNames.AppAuth.OTP)}
+          label="Verify"
+          onPress={() => console.log('register pressed')}
         />
       </ScrollView>
     </UIContainer>
@@ -59,18 +73,19 @@ const ResetPassword = ({
 };
 
 const styles = StyleSheet.create({
-  iconStyle: {
-    paddingVertical: DIMENSIONS.padding / 2,
+  underlineStyleBase: {
+    width: 60,
+    height: 60,
+    backgroundColor: COLORS.backgroundColor,
+    borderRadius: 10,
   },
-  description: {
-    textAlign: 'center',
-    fontFamily: FontFamily.Medium,
-    fontSize: 13,
-    color: COLORS.grey.grey2,
-    lineHeight: 20,
-    marginTop: DIMENSIONS.margin * 2,
-    marginBottom: DIMENSIONS.margin * 4,
+
+  resendToken: {
+    color: COLORS.primaryColor,
+    fontFamily: FontFamily.Regular,
+    textAlign: 'right',
+    marginBottom: DIMENSIONS.marginBottom,
   },
 });
 
-export default ResetPassword;
+export default OTPScreen;

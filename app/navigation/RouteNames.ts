@@ -4,6 +4,7 @@ export default {
         Welcome:"welcome",
         Login:"login",
         Register:'register',
-        ResetPassword:"reset_password"
+        ResetPassword:"reset_password",
+        OTP:"otp"
     }
 }
