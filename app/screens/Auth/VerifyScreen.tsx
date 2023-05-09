@@ -53,7 +53,7 @@ const VerifyScreen = ({
 
         <UIButton
           label="Finish"
-          onPress={() => console.log('register pressed')}
+          onPress={() => navigation.navigate(RouteNames.App)}
         />
       </ScrollView>
     </UIContainer>

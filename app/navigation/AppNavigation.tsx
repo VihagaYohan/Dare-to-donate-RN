@@ -5,7 +5,10 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  createBottomTabNavigator,
+  BottomTabNavigationEventMap,
+} from '@react-navigation/bottom-tabs';
 
 // navigation
 import {RouteNames} from './index';
@@ -20,6 +23,9 @@ import {
   OTPScreen,
   VerifyScreen,
 } from '../screens/Auth';
+
+// home screens
+import {HomeScreen} from '../screens/Home';
 
 // constants
 import {COLORS} from '../constants';
@@ -42,6 +48,11 @@ const Navigator = () => {
     animation: Platform.OS == 'ios' ? 'default' : 'slide_from_right',
   };
 
+  const bottomNavigationOptions: BottomTabNavigationEventMap = {
+    tabPress: {data: undefined, canPreventDefault: true},
+    tabLongPress: {data: undefined},
+  };
+
   // BOTTOM TABS
   const FeaturesStack = createBottomTabNavigator();
   const HomeStack = createNativeStackNavigator();
@@ -49,6 +60,46 @@ const Navigator = () => {
   const DonorStack = createNativeStackNavigator();
   const ReportStack = createNativeStackNavigator();
   const ProfileStack = createNativeStackNavigator();
+
+  // ROOT BOTTOM NAVIGATOR
+  const BottomTabs = () => {
+    return (
+      <FeaturesStack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <FeaturesStack.Screen
+          name={RouteNames.Home.Home}
+          component={HomeScreen}
+          options={bottomNavigationOptions}
+        />
+
+        <FeaturesStack.Screen
+          name={RouteNames.Search.Search}
+          component={HomeScreen}
+          options={bottomNavigationOptions}
+        />
+
+        <FeaturesStack.Screen
+          name={RouteNames.Request.Request}
+          component={HomeScreen}
+          options={bottomNavigationOptions}
+        />
+
+        <FeaturesStack.Screen
+          name={RouteNames.Reports.Reports}
+          component={HomeScreen}
+          options={bottomNavigationOptions}
+        />
+
+        <FeaturesStack.Screen
+          name={RouteNames.Profile.Profile}
+          component={HomeScreen}
+          options={bottomNavigationOptions}
+        />
+      </FeaturesStack.Navigator>
+    );
+  };
 
   return (
     <Stack.Navigator initialRouteName={RouteNames.AppAuth.Login}>
@@ -91,6 +142,12 @@ const Navigator = () => {
       <Stack.Screen
         name={RouteNames.AppAuth.Verify}
         component={VerifyScreen}
+        options={defaultNavigationOptions}
+      />
+
+      <Stack.Screen
+        name={RouteNames.App}
+        component={BottomTabs}
         options={defaultNavigationOptions}
       />
     </Stack.Navigator>
